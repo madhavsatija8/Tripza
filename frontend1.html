@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Luxury Travel Planner AI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:
+    radial-gradient(circle at top left,#2b2100 0%,#0b0b0b 40%),
+    radial-gradient(circle at bottom right,#3d2f00 0%,#000000 45%);
+    min-height:100vh;
+    color:white;
+    padding:30px;
+}
+
+.container{
+    max-width:1300px;
+    margin:auto;
+}
+
+/* HEADER */
+header{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+header h1{
+    font-size:3rem;
+    font-weight:700;
+    background:linear-gradient(90deg,#ffd700,#ffef99,#c89b3c);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+header p{
+    color:#d6c38b;
+    margin-top:10px;
+}
+
+/* SEARCH */
+.search-box{
+    display:flex;
+    gap:15px;
+    margin-top:30px;
+    justify-content:center;
+}
+
+.search-box input{
+    width:70%;
+    padding:16px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,215,0,0.3);
+    color:white;
+    border-radius:12px;
+    outline:none;
+    backdrop-filter:blur(10px);
+}
+
+.search-box button{
+    padding:16px 28px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#ffd700,#b8860b);
+    color:black;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.search-box button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 20px rgba(255,215,0,0.6);
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+    margin-top:25px;
+}
+
+/* CARD */
+.card{
+    background:rgba(255,255,255,0.04);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,215,0,0.15);
+    border-radius:20px;
+    padding:25px;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(255,215,0,0.5);
+}
+
+.card h2{
+    color:#ffd700;
+    margin-bottom:20px;
+}
+
+/* PROGRESS */
+.progress{
+    margin-top:15px;
+    width:100%;
+    height:18px;
+    background:#222;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    width:80%;
+    height:100%;
+    background:linear-gradient(90deg,#ffd700,#ffb700);
+}
+
+/* WEATHER */
+.weather-container{
+    display:flex;
+    gap:15px;
+}
+
+.weather{
+    flex:1;
+    text-align:center;
+    padding:20px;
+    border-radius:15px;
+    background:rgba(255,215,0,0.08);
+    border:1px solid rgba(255,215,0,0.2);
+}
+
+.weather h3{
+    color:#ffd700;
+    margin-bottom:10px;
+}
+
+/* MAP */
+.map{
+    height:350px;
+    border-radius:15px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:24px;
+    color:#ffd700;
+    background:
+    linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),
+    url('https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=1200');
+    background-size:cover;
+    background-position:center;
+}
+
+/* SECTION TITLE */
+.section-title{
+    margin:40px 0 25px;
+    color:#ffd700;
+    font-size:2rem;
+}
+
+/* ITINERARY */
+.itinerary-section{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:30px;
+}
+
+.day-card{
+    background:rgba(255,255,255,0.04);
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid rgba(255,215,0,0.2);
+}
+
+/* DAY HEADER */
+.day-header{
+    padding:20px;
+    color:black;
+    font-weight:600;
+}
+
+.day1 .day-header{ background:linear-gradient(135deg,#ffd700,#ffef99); }
+.day2 .day-header{ background:linear-gradient(135deg,#c9a227,#ffe08a); }
+.day3 .day-header{ background:linear-gradient(135deg,#b8860b,#ffd700); }
+
+/* TIMELINE */
+.timeline{
+    padding:20px;
+    position:relative;
+}
+
+.timeline::before{
+    content:"";
+    position:absolute;
+    left:62px;
+    top:20px;
+    bottom:20px;
+    width:2px;
+    background:#333;
+}
+
+.timeline-item{
+    display:flex;
+    gap:25px;
+    margin-bottom:20px;
+}
+
+.time{
+    width:70px;
+    color:#ffd700;
+    font-weight:700;
+    position:relative;
+}
+
+.time::after{
+    content:"";
+    position:absolute;
+    right:-14px;
+    top:4px;
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:#000;
+    border:3px solid #ffd700;
+}
+
+.activity{
+    flex:1;
+    background:#1a1a1a;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid rgba(255,215,0,0.1);
+}
+
+.activity h4{
+    color:white;
+    margin-bottom:5px;
+}
+
+.activity p{
+    color:#aaa;
+    font-size:14px;
+}
+
+/* BUDGET */
+.budget-table{
+    width:100%;
+}
+
+.budget-table td{
+    padding:12px;
+    border-bottom:1px solid #222;
+}
+
+.total{
+    color:#ffd700;
+    font-weight:700;
+}
+
+/* PLACE */
+.place{
+    background:#1a1a1a;
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:12px;
+    border:1px solid rgba(255,215,0,0.1);
+}
+
+/* BUTTONS */
+.action-buttons{
+    text-align:center;
+    margin-top:40px;
+}
+
+.action-buttons button{
+    padding:15px 28px;
+    border:none;
+    border-radius:12px;
+    margin:10px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.download{
+    background:#ffd700;
+    color:black;
+}
+
+.share{
+    background:#222;
+    color:#ffd700;
+    border:1px solid #ffd700;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <h1>✈ Luxury Travel Planner AI</h1>
+    <p>Plan unforgettable journeys with elegance & intelligence</p>
+
+    <div class="search-box">
+        <input type="text" value="3 Days in Jaipur under ₹10,000">
+        <button>Generate Luxury Trip</button>
+    </div>
+</header>
+
+<!-- SUMMARY -->
+<div class="grid">
+
+<div class="card">
+    <h2>Trip Summary</h2>
+    <p><strong>Destination:</strong> Jaipur</p>
+    <p><strong>Duration:</strong> 3 Days</p>
+    <p><strong>Budget:</strong> ₹10,000</p>
+
+    <div class="progress">
+        <div class="progress-bar"></div>
+    </div>
+
+    <p style="margin-top:15px;color:#aaa;">Estimated Usage: ₹8,000</p>
+</div>
+
+<div class="card">
+    <h2>Weather Forecast</h2>
+
+    <div class="weather-container">
+        <div class="weather"><h3>Day 1</h3>☀️ 38°C</div>
+        <div class="weather"><h3>Day 2</h3>⛅ 36°C</div>
+        <div class="weather"><h3>Day 3</h3>🌧️ 33°C</div>
+    </div>
+</div>
+
+</div>
+
+<!-- MAP -->
+<div class="card" style="margin-top:25px;">
+    <h2>Route Map</h2>
+    <div class="map">Premium Interactive Map</div>
+</div>
+
+<!-- ITINERARY -->
+<h2 class="section-title">✨ 3-Day Itinerary</h2>
+
+<div class="itinerary-section">
+
+<!-- DAY 1 -->
+<div class="day-card day1">
+    <div class="day-header"><h2>🌅 Day 1</h2></div>
+    <div class="timeline">
+        <div class="timeline-item"><div class="time">09:00</div><div class="activity"><h4>Amber Fort</h4><p>Royal architecture experience</p></div></div>
+        <div class="timeline-item"><div class="time">12:00</div><div class="activity"><h4>Lunch</h4><p>Traditional cuisine</p></div></div>
+        <div class="timeline-item"><div class="time">14:00</div><div class="activity"><h4>Jal Mahal</h4><p>Lake view</p></div></div>
+        <div class="timeline-item"><div class="time">17:00</div><div class="activity"><h4>City Palace</h4><p>Royal history</p></div></div>
+        <div class="timeline-item"><div class="time">20:00</div><div class="activity"><h4>Bapu Bazaar</h4><p>Shopping</p></div></div>
+    </div>
+</div>
+
+<!-- DAY 2 -->
+<div class="day-card day2">
+    <div class="day-header"><h2>☀️ Day 2</h2></div>
+    <div class="timeline">
+        <div class="timeline-item"><div class="time">09:00</div><div class="activity"><h4>Hawa Mahal</h4><p>Wind Palace</p></div></div>
+        <div class="timeline-item"><div class="time">11:00</div><div class="activity"><h4>Jantar Mantar</h4><p>Observatory</p></div></div>
+        <div class="timeline-item"><div class="time">14:00</div><div class="activity"><h4>Albert Hall Museum</h4><p>History</p></div></div>
+        <div class="timeline-item"><div class="time">18:00</div><div class="activity"><h4>Food Tour</h4><p>Local cuisine</p></div></div>
+    </div>
+</div>
+
+<!-- DAY 3 -->
+<div class="day-card day3">
+    <div class="day-header"><h2>🌄 Day 3</h2></div>
+    <div class="timeline">
+        <div class="timeline-item"><div class="time">09:00</div><div class="activity"><h4>Nahargarh Fort</h4><p>City view</p></div></div>
+        <div class="timeline-item"><div class="time">12:00</div><div class="activity"><h4>Patrika Gate</h4><p>Photo spot</p></div></div>
+        <div class="timeline-item"><div class="time">15:00</div><div class="activity"><h4>Shopping</h4><p>Markets</p></div></div>
+        <div class="timeline-item"><div class="time">18:00</div><div class="activity"><h4>Departure</h4><p>End trip</p></div></div>
+    </div>
+</div>
+
+</div>
+
+<!-- BOTTOM -->
+<div class="grid" style="margin-top:40px;">
+
+<div class="card">
+    <h2>💰 Budget Breakdown</h2>
+    <table class="budget-table">
+        <tr><td>Hotel</td><td>₹3500</td></tr>
+        <tr><td>Food</td><td>₹2000</td></tr>
+        <tr><td>Transport</td><td>₹1500</td></tr>
+        <tr class="total"><td>Total</td><td>₹8000</td></tr>
+    </table>
+</div>
+
+<div class="card">
+    <h2>📍 Nearby Attractions</h2>
+    <div class="place"><strong>Amber Fort</strong> ⭐ 4.7 | 2.1 km</div>
+    <div class="place"><strong>Hawa Mahal</strong> ⭐ 4.8 | 1.3 km</div>
+    <div class="place"><strong>Jal Mahal</strong> ⭐ 4.6 | 3.5 km</div>
+</div>
+
+</div>
+
+<!-- BUTTONS -->
+<div class="action-buttons">
+    <button class="download">Download</button>
+    <button class="share">Share</button>
+</div>
+
+</div>
+
+</body>
+</html>
