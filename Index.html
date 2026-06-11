@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIPZA – Travel Buddy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href ="style.css">
+
+</head>
+<body>
+    <div class="container">
+  <header>
+    <h1>✈ TRIPZA – Travel Buddy</h1>
+    <div class="search-box">
+      <input type="text" id="destinationInput" value="3 Days in Jaipur under ₹10,000" placeholder="e.g., 5 Days in Goa under ₹15,000">
+      <button id="generateBtn">✨ Generate Trip</button>
+    </div>
+  </header>
+
+  <div class="time-preferences">
+    <div class="time-picker"><label>🌅 Day Start</label><input type="time" id="startTimeInput" value="09:00"></div>
+    <div class="time-picker"><label>🌙 Day End</label><input type="time" id="endTimeInput" value="19:00"></div>
+    <button id="applyTimeBtn" class="update-time-btn">⏱️ Update Schedule</button>
+  </div>
+
+  <div class="hotel-selector" id="hotelSelectorPanel">
+    <div class="hotel-group">
+      <label class="hotel-option" id="hotel3starOpt"><input type="radio" name="hotelClass" value="3star" checked> <span class="hotel-label">🏨 3 Star / Budget</span><span class="hotel-price">(~₹1,200/night)</span></label>
+      <label class="hotel-option" id="hotel5starOpt"><input type="radio" name="hotelClass" value="5star"> <span class="hotel-label">👑 5 Star / Luxury</span><span class="hotel-price">(~₹4,800/night)</span></label>
+    </div>
+    <div class="api-hotels-preview" id="apiHotelPreview">
+      <span class="api-badge">🏨 LIVE HOTELS API</span>
+      <div id="liveHotelContainer" class="live-hotel-scroll"><span class="hotel-suggestion">🔍 Generate trip to see live stays</span></div>
+      <div id="hotelSuggestText" class="hotel-suggestion"></div>
+    </div>
+  </div>
+
+  <div class="day-control">
+    <button id="removeDayBtn">− Remove Day</button>
+    <span>🗓️ Total Days: <strong id="dayCountValue">3</strong></span>
+    <button id="addDayBtn">+ Add Day</button>
+  </div>
+
+  <div class="grid">
+    <div class="card"><h2>Trip Summary</h2><p><strong>Destination:</strong> <span id="destName">Jaipur</span></p><p><strong>Duration:</strong> <span id="durationDays">3</span> Days</p><p><strong>Budget:</strong> ₹<span id="totalBudgetSpan">10,000</span></p><div class="progress"><div class="progress-bar" id="budgetProgressBar"></div></div><p style="margin-top:12px;">Estimated Usage: ₹<span id="estimatedCost">8,000</span></p></div>
+    <div class="card"><h2>🌤️ Weather Forecast</h2><div id="dynamicWeather" class="weather-dynamic">Loading weather…</div></div>
+  </div>
+
+  <div class="card map-card"><h2>🗺️ Interactive Map</h2><div id="mapContainer" style="height:320px; border-radius:28px; background:#D6DBD2;"></div></div>
+
+  <h2 class="section-title" style="margin: 24px 0 14px;">✅ Smart Itinerary (5+ Attractions Daily)</h2>
+  <div id="itineraryContainer" class="itinerary-section"></div>
+
+  <div class="grid" style="margin-top:36px;">
+    <div class="card"><h2>💰 Budget Breakdown</h2><table class="budget-table" id="budgetTable"><tbody><tr><td>🏨 Stay</td><td>-</td></tr></tbody></table></div>
+    <div class="card"><h2>📍 Nearby Places & Attractions</h2><div id="attractionsList"></div></div>
+  </div>
+  <div class="action-buttons"><button class="btn-download" id="downloadBtn">📄 Download</button><button class="btn-share" id="shareBtn">📤 Share Plan</button></div>
+</div>
+<script src ="script.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</body>
+</html>
