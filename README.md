@@ -1,166 +1,185 @@
-# ✈️ Tripza
+# ✈️ TRIPZA – Travel Buddy
 
-An intelligent travel planning web application that generates personalized itineraries, real-time weather forecasts, budget estimates, and nearby attractions based on user input like *"3 days in Jaipur under ₹10,000"*.
+TRIPZA is a smart travel itinerary planner that helps users create personalized travel plans based on destination, trip duration, budget, hotel preferences, weather conditions, and nearby attractions.
 
-![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
-![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+## 🌟 Features
 
----
-
-## 📋 Table of Contents
-
-- [Features](#features)
-- [How It Works](#how-it-works)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Prerequisites](#prerequisites)
-- [Installation & Setup](#installation--setup)
-- [Getting API Keys](#getting-api-keys)
-- [Running the Application](#running-the-application)
-- [Usage Examples](#usage-examples)
-- [Troubleshooting](#troubleshooting)
-- [Future Enhancements](#future-enhancements)
-- [License](#license)
+- 📍 Generate travel itineraries for any destination
+- 🗓️ Customizable trip duration (1–10 days)
+- 💰 Budget estimation and breakdown
+- 🏨 Hotel selection (Budget & Luxury)
+- 🌤️ Live weather forecast using OpenWeather API
+- 🗺️ Interactive destination map using Leaflet.js
+- 🎯 Smart attraction recommendations
+- ⏰ Editable activity timings
+- ✅ Progress tracking with checklists
+- 📄 Download itinerary
+- 📤 Share trip plan
 
 ---
 
-## ✨ Features
+## 🛠️ Technologies Used
 
-- **Natural Language Input** – Type something like *"4 days in Goa under ₹15,000"* and the app understands.
-- **Real-time Weather** – Fetches current temperature, humidity, and conditions via OpenWeather API.
-- **Smart Itinerary** – Generates day-by-day plans with morning, afternoon, and evening activities (city‑specific for Jaipur, Goa, Manali).
-- **Budget Breakdown** – Estimates costs for accommodation, food, transport, and activities. Shows progress bar and savings.
-- **Nearby Attractions** – Lists top 5 places to visit using Google Places API.
-- **Tabbed Interface** – Clean, professional UI with separate tabs for Itinerary, Weather, Budget, and Attractions.
-- **Responsive Design** – Works on desktop, tablet, and mobile.
-- **Secure API Key Management** – Keys stored in `.env` file, never exposed to the browser.
+### Frontend
+- HTML5
+- CSS3
+- JavaScript (ES6)
 
----
+### APIs
+- OpenWeather API
+- Geoapify API
+- OpenStreetMap Nominatim API
 
-## ⚙️ How It Works
-
-1. User enters a trip description (e.g., *"3 days in Jaipur under ₹10,000"*).
-2. Frontend extracts **destination**, **number of days**, and **budget**.
-3. Frontend sends a POST request to the Flask backend (`/api/plan-trip`).
-4. Backend calls:
-   - **OpenWeather API** for current weather.
-   - **Google Places API** for attractions.
-5. Backend calculates budget and generates a day‑wise itinerary.
-6. Backend returns a JSON response with all data.
-7. Frontend displays the results in a tabbed, card-based layout.
+### Libraries
+- Leaflet.js
 
 ---
 
-## 🛠️ Tech Stack
+## 📂 Project Structure
 
-| Layer       | Technology                                 |
-|-------------|--------------------------------------------|
-| **Frontend**| HTML5, CSS3, JavaScript (ES6)              |
-| **Backend** | Python 3.8+ with Flask                     |
-| **APIs**    | OpenWeather API, Google Places API         |
-| **HTTP Client** | `requests` (Python) + `fetch` (JS)     |
-| **Environment** | `python-dotenv` for `.env` management  |
-
----
-
-## 📁 Project Structure
-Tripza/
+```
+TRIPZA/
 │
-├── app.py # Flask backend (main server)
-├── requirements.txt # Python dependencies
-├── .env # API keys (not committed)
-├── .gitignore # Ignore sensitive files
-├── README.md # This file
-│
-└── templates/
-└── index.html # Frontend UI
-
-text
+├── index.html      # Main webpage
+├── style.css       # Styling and UI design
+├── script.js       # Application logic and API integration
+└── README.md
+```
 
 ---
 
-## 🔧 Prerequisites
+## 🚀 How It Works
 
-- **Python 3.8+** – [Download Python](https://python.org)
-- **pip** – Usually comes with Python
-- **Git** (optional) – For version control
+1. Enter trip details:
+
+```
+3 Days in Jaipur under ₹10,000
+```
+
+2. Click **Generate Trip**
+
+3. TRIPZA will:
+   - Generate attractions
+   - Fetch weather forecast
+   - Show hotel suggestions
+   - Calculate budget
+   - Create a day-wise itinerary
 
 ---
 
-## 📦 Installation & Setup
+## 🔑 API Setup
 
-### 1. Clone or create the project folder
+### OpenWeather API
 
-```bash
-mkdir Tripza
-cd Tripza
-2. Create a virtual environment (recommended)
-bash
-# Windows
-python -m venv venv
-venv\Scripts\activate
+Get API key from:
 
-# Mac / Linux
-python3 -m venv venv
-source venv/bin/activate
-3. Install dependencies
-bash
-pip install flask requests python-dotenv flask-cors
-Or use requirements.txt:
+https://openweathermap.org/api
 
-bash
-pip install -r requirements.txt
-4. Create .env file
-Create a file named .env in the root folder and add your API keys:
+Replace:
 
-env
-OPENWEATHER_API_KEY=your_openweather_api_key_here
-GOOGLE_PLACES_API_KEY=your_google_places_api_key_here
-⚠️ Never commit .env to GitHub! It is already ignored via .gitignore.
+```javascript
+const OPENWEATHER_KEY = "YOUR_API_KEY";
+```
 
-5. Create templates/ folder and add index.html
-bash
-mkdir templates
-Then copy the provided index.html into the templates/ folder.
+---
 
-🔑 Getting API Keys
-OpenWeather API
-Go to OpenWeather Sign Up
+### Geoapify API
 
-Create a free account
+Get API key from:
 
-Verify your email
+https://www.geoapify.com/
 
-Log in → API Keys tab
+Replace:
 
-Copy the default key (or create a new one)
+```javascript
+const GEOAPIFY_KEY = "YOUR_API_KEY";
+```
 
-Google Places API
-Go to Google Cloud Console
+---
 
-Create a new project (e.g., "TravelPlanner")
+## 📊 Main Modules
 
-Enable Places API from the library
+### Weather Module
+Fetches live weather forecast for selected destination.
 
-Go to Credentials → Create Credentials → API Key
+### Hotel Module
+Provides hotel suggestions and updates trip budget dynamically.
 
-Copy the key
+### Budget Module
+Calculates:
 
-(Recommended) Restrict the key to Places API only to prevent misuse
+- Hotel Cost
+- Food Cost
+- Transport Cost
+- Attraction Cost
 
-🚀 Running the Application
-Start the Flask backend
-bash
-python app.py
-You should see:
+### Itinerary Module
+Creates:
 
-text
-==================================================
-✈️ Tripza - Server Running
-==================================================
-📍 Backend: http://localhost:5000
-🌐 Open in browser: http://localhost:5000
-==================================================
-Open the app
-Go to http://localhost:5000 in your browser.
+- Day-wise plan
+- Activity checklist
+- Editable timings
+
+### Map Module
+Displays destination on an interactive map using Leaflet.
+
+---
+
+## 🎯 Sample Input
+
+```
+5 Days in Goa under ₹15000
+```
+
+### Generated Output
+
+- Day-wise itinerary
+- Weather forecast
+- Nearby attractions
+- Hotel suggestions
+- Budget estimate
+- Interactive map
+
+---
+
+## 👥 Team Contributions
+
+This project was developed collaboratively by the TRIPZA team.
+
+Key development areas included:
+
+- Frontend UI Design
+- API Integration
+- Itinerary Generation
+- Budget Calculation
+- Weather Forecasting
+- Hotel Recommendation System
+- Interactive Map Integration
+
+---
+
+## 🔮 Future Enhancements
+
+- User Authentication
+- Save Trip History
+- PDF Export
+- AI-Based Recommendations
+- Multi-City Planning
+- Real Hotel Pricing Integration
+- Flight Booking Integration
+
+---
+
+## 📸 Project Preview
+
+TRIPZA provides an all-in-one travel planning experience by combining itinerary generation, budgeting, weather forecasting, hotel suggestions, and attraction discovery in a single web application.
+
+---
+
+## 📄 License
+
+This project is developed for educational and learning purposes.
+
+---
+
+### Made with ❤️ by Team TRIPZA
